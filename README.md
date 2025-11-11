@@ -1,13 +1,15 @@
 # Skill Boundary Agent
 
-Skill Boundary Agent (SBA), a brand new frame to detect students' skill boundary automaticallly.
+Skill Boundary Agent (SBA), a brand new frame to detect students' skill boundary automatically.
 
 ## Reproduce
 
-make output directory:
+Install Git and Git LFS, then clone the repository.
+
+Install uv, then sync the python environment:
 
 ```bash
-mkdir outputs
+uv sync
 ```
 
 set llm api:
@@ -24,15 +26,15 @@ python sba_baseline.py
 python sba_ours.py
 ```
 
-then, all results will appear in `outputs` folder and console.
+then, check all results in `outputs` folder and console.
 
 ## Frame
 
-- `cdm/`: pretrained model
+- `cdm/`: pretrained model and model inference code
 - `data/`: test data and context info
-- `utils/`: some tool functions, such as graph and llm_api function
+- `utils/`: tool functions, such as graph and llm_api function
 - `config.py`: global config
-- `sba_baseline.py`: algorithm baseline
+- `sba_baseline.py`: baseline algorithms
 - `sba_ours.py`: our SOTA algorithm
 - `validate_downstream1.py`: validate downstream task of _Frontier-Question Recommendation_
 - `validate_downstream2.py`: validate downstream task of _Target Skill Path Planning_

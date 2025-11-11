@@ -1,11 +1,6 @@
-"""
-图模块
-"""
-
 import json
 from collections import defaultdict
-from typing import Any, Dict
-from typing import List, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple
 
 
 class Node:
@@ -17,8 +12,6 @@ class Node:
 
 
 def calc_metric(cand: set, pos: set, neg: set, g: List[Set[int]]) -> Tuple:
-
-  
     p = len(cand & pos) / len(cand)
     r = len(cand & pos) / len(pos)
     if p + r:
@@ -26,7 +19,6 @@ def calc_metric(cand: set, pos: set, neg: set, g: List[Set[int]]) -> Tuple:
     else:
         pcs = 0
     
-  
     e_cnt = 0
     for u in cand:
         if u not in pos:
@@ -36,24 +28,19 @@ def calc_metric(cand: set, pos: set, neg: set, g: List[Set[int]]) -> Tuple:
                 e_cnt += 1
     nbs = e_cnt / len(cand)
     
-    
     up = len(cand - pos - neg) / len(cand)
     
     return pcs, nbs, up, pcs * nbs * (1 - up)
 
 
 def load_mooc_adj_table() -> List[Set[int]]:
-    
-    
     with open("data/entity2id.json", 'r') as f:
-        entity2id: Dict[str, int] = json.load(f)  
+        entity2id: Dict[str, int] = json.load(f)
     with open("data/stu_problems.json", 'r') as f:
-        problem_info: Dict[str, Any] = json.load(f)  
+        problem_info: Dict[str, Any] = json.load(f)
     
-    
-    n = len(entity2id)  
+    n = len(entity2id)
     g = [set() for _ in range(n)]
-    
     
     course_sections = defaultdict(set)
     for _, p_info in problem_info.items():
@@ -73,9 +60,7 @@ def load_mooc_adj_table() -> List[Set[int]]:
                 if x != y:
                     g[x].add(y)
         
-        
         course_sections[course_id].add(section_id)
-    
     
     for _, sections in course_sections.items():
         for s in sections:

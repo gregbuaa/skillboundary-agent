@@ -1,4 +1,3 @@
-
 import json
 from collections import deque
 from typing import List, Set
@@ -21,6 +20,7 @@ def build_predecessors(adj: List[Set[int]]) -> List[Set[int]]:
         for v in adj[u]:
             preds[v].add(u)
     return preds
+
 
 predecessors = build_predecessors(adj_table)
 

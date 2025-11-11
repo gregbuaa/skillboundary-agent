@@ -2,8 +2,8 @@ from openai import OpenAI
 
 from utils import api_base, api_keys
 
-def ask(user_prompt, system_prompt=None, temperature=0.0, model="gpt-3.5-turbo") -> str:
 
+def ask(user_prompt, system_prompt=None, temperature=0.0, model="gpt-3.5-turbo") -> str:
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt}

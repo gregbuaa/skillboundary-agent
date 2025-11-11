@@ -1,4 +1,3 @@
-
 import json
 from collections import deque
 from typing import Any, Dict, List, Set
@@ -6,14 +5,16 @@ from typing import Any, Dict, List, Set
 from tqdm import tqdm
 
 import config
-from cdm_NCD.predict import get_stu_emb
+from cdm.ncd.predict import get_stu_emb
+# change pre-trained CDM model
+# from cdm.rcd.predict import get_stu_emb
 from utils.graph import calc_metric, load_junyi_adj_table, load_mooc_adj_table
 
 pos_node_threshold = 0.52
 
 
 def _bfs_k_hop(start: int, k: int) -> Set[int]:
-    """从 start 点出发，BFS 找到 k 跳邻域内所有结点"""
+    """start node, return all nodes from k hops"""
     vis = {start}
     queue = deque([(start, 0)])
     while queue:
@@ -35,7 +36,6 @@ def psi_with_rule(cnt: int = 10):
         pos: Set[int] = set(td["gt_subgraph"]["pos_inner_nodes"])
         neg: Set[int] = set(td["gt_subgraph"]["neg_front_nodes"])
         
-      
         w = get_stu_emb(user_id)
         k_hops = _bfs_k_hop(init_nodes, 2)
         cand = set()
@@ -64,7 +64,6 @@ def weighted_psi(cnt=10):
         pos: Set[int] = set(td["gt_subgraph"]["pos_inner_nodes"])
         neg: Set[int] = set(td["gt_subgraph"]["neg_front_nodes"])
         
-      
         w = get_stu_emb(user_id)
         k_hops = _bfs_k_hop(init_nodes, 2)
         cand = set()

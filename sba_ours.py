@@ -6,8 +6,10 @@ from typing import Dict, List, Set
 from tqdm import tqdm
 
 import config
-from cdm_NCD.predict import get_stu_emb
-from config import gpt_model, lang
+from cdm.ncd.predict import get_stu_emb
+# change pre-trained CDM model
+# from cdm.rcd.predict import get_stu_emb
+from config import gpt_model
 from utils.graph import calc_metric, load_junyi_adj_table, load_mooc_adj_table
 from utils.llm_api import ask
 
@@ -17,10 +19,10 @@ delta_thr = 0.013
 NUM_PROCESSES = 10
 PROCESS_LOG_FILE = "data/process.json"
 output_file = f"outputs/gpt-4o-mooc.json"
+os.makedirs('outputs', exist_ok=True)
 
 
 def build_prompt(cand, expand_candidates, backtrace_candidates, w, id2entity, topk=topk):
-    
     prompt = "The current subgraph contains the following nodes (Node ID: Mastery Value):\n"
     for v in cand:
         prompt += f"- {v}: {w[v]:.3f}, Content: {id2entity.get(str(v), 'Unknown')}\n"
@@ -132,7 +134,7 @@ def run_process(proc_id: int, test_data_slice: List[Dict], g, id2entity, return_
 
 def skill_boundary_agent_multi():
     with open("data/id2entity.json", 'r') as f:
-            id2entity = json.load(f)
+        id2entity = json.load(f)
     if config.dataset == "mooc":
         g = load_mooc_adj_table()
         with open("data/mooc_test_data.json", "r", encoding="utf-8") as f:

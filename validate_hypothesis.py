@@ -1,9 +1,6 @@
-
 from collections import deque
 
-import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 from tqdm import tqdm
 
 import config
@@ -15,11 +12,11 @@ data_path = "outputs/metrics_data.npy"
 def get_stu_node_state(n: int, u_records: List[Dict[str, Any]],
                        threshold: float = 0.8) -> Tuple[List[Node], Set[int], Set[int]]:
     """
-    计算当前学生在知识图谱上每一个结点的掌握状态
-    :param n: 结点数量
-    :param u_records: 当前学生的答题记录
-    :param threshold: 结点正负判定阈值（可以再完善，TODO）
-    :return: 判定掌握的结点集合、判定没掌握的结点集合
+    Calculate the current mastery status of each node of the student on the knowledge graph
+    :param n: node number
+    :param u_records: user record
+    :param threshold: the threshold to judge correct or wrong
+    :return: set of mastered and not mastered
     """
     
     w = [Node() for _ in range(n)]
@@ -46,7 +43,6 @@ def get_stu_node_state(n: int, u_records: List[Dict[str, Any]],
 
 
 def get_cand_vex(cand: set, pos: set, neg: set, iter: int) -> List[int]:
-    
     neg_v: List[int] = []
     unk_v: List[int] = []
     now = cand.copy()
@@ -69,15 +65,14 @@ def get_cand_vex(cand: set, pos: set, neg: set, iter: int) -> List[int]:
 
 
 def main(g: List[Set[int]], iter: int = 100) -> None:
-    
     n = len(g)
     students_metric: List[List[Tuple]] = []
     for _, u_records in tqdm(records.items(), desc="Processing"):
-
+        
         w, pos, neg = get_stu_node_state(n, u_records)
         if len(pos) == 0:
             continue
-
+        
         student_metric: List[Tuple] = []
         cand = pos.copy()
         cand_v = get_cand_vex(cand, pos, neg, iter)
@@ -103,5 +98,5 @@ if __name__ == '__main__':
         g = load_mooc_adj_table()
     else:
         g = load_junyi_adj_table()
-      
+    
     main(g)
