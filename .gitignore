@@ -1,3 +1,5 @@
 .idea
 .venv
 .env
+uv.lock
+.python-version

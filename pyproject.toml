@@ -1,6 +1,7 @@
 [project]
 name = "skill-boundary-agent"
 description = "SBA, a brand new frame to detect students' skill boundary automatically."
+version="0.0.1"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
