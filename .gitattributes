@@ -7,3 +7,5 @@ data/junyi_test_data.json filter=lfs diff=lfs merge=lfs -text
 data/K_Directed.txt filter=lfs diff=lfs merge=lfs -text
 data/K_Undirected.txt filter=lfs diff=lfs merge=lfs -text
 data/mooc_test_data.json filter=lfs diff=lfs merge=lfs -text
+data/entity2id.json filter=lfs diff=lfs merge=lfs -text
+data/uid.json filter=lfs diff=lfs merge=lfs -text
